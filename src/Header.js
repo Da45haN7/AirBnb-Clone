@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from '@mui/material';
 import SignUp from "./SignUp";
+import Register from "./Register";
 
 export default function Header(){
     const [Open, setOpen] = React.useState(false)
@@ -18,6 +19,12 @@ export default function Header(){
     function togglePop(){
         setSeen(!seen)
     }
+
+    const [reg, setReg] = React.useState(false)
+    function toggleReg(){
+        setReg(!reg)
+    }
+
     return(
         <div className="header">
             <Link to='/'>
@@ -36,12 +43,13 @@ export default function Header(){
                                 {
                                     Open ? (
                                             <div class="dropdown-content">
-                                                <a onClick={togglePop}>Sign up</a>
-                                                {seen ? <SignUp toggle={togglePop} /> : null}
+                                                {/* SignUp */}
+                                                <a onClick={toggleReg}>Sign up</a>
+                                                {reg ? <Register toggle={toggleReg} /> : null}
                                                 <a onClick={togglePop}>Log in</a>
                                                 {seen ? <SignUp toggle={togglePop} /> : null}
-                                                <a href="#">AirBnb Your Home</a>
-                                                <a href="#">Help</a>
+                                                <a>AirBnb Your Home</a>
+                                                <a>Help</a>
                                             </div>
                                     ) : null
                                 } 

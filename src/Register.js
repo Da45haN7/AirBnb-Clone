@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { Link} from "react-router-dom";
 import {
-  auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "./firebase";
 import "./Register.css";
-function Register() {
+import CloseIcon from '@mui/icons-material/Close';
+import SignUp from "./SignUp";
+
+function Register(props) {
+
+  const [seen, setSeen] = React.useState(false)
+  function togglePop(){
+      setSeen(!seen)
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const history = useNavigate();
   const register = () => {
     if (!name) alert("Please enter name");
     registerWithEmailAndPassword(name, email, password);
@@ -20,6 +24,10 @@ function Register() {
   return (
     <div className="register">
       <div className="register__container">
+        <div className="login__top">
+          <h2>Register</h2>
+          <CloseIcon sx={{ fontSize: 35 }} className="close" onClick={props.toggle}/>
+        </div>
         <input
           type="text"
           className="register__textBox"
@@ -50,8 +58,8 @@ function Register() {
         >
           Register with Google
         </button>
-        <div>
-          Already have an account? <Link to="/">Login</Link> now.
+        <div className="link">
+          Already have an account? <a onClick={togglePop}>Log in</a>{seen ? <SignUp toggle={togglePop} /> : null} now.
         </div>
       </div>
     </div>
