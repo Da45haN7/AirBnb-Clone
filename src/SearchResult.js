@@ -17,7 +17,6 @@ export default function SearchResult({Img, location,
                 <div className="searchResult__infoTop">
                     <p>{location}</p>
                     <h3>{title}</h3>
-                    <p>____</p>
                     <p>{description}</p>
                 </div>
 
@@ -30,7 +29,7 @@ export default function SearchResult({Img, location,
                     </div>
                     <div className='searchResults__price'>
                         <h2>{price}</h2>
-                        <p>{total}</p>
+                        <p>${total} total</p>
                     </div>
                 </div>
             </div>

@@ -6,24 +6,33 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from '@mui/material';
-import SignUp from "./SignUp";
-import Register from "./Register";
+
 
 export default function Header(){
+
+    let menuRef = React.useRef()
+
     const [Open, setOpen] = React.useState(false)
     function handleOpen(){
         setOpen(!Open)
     }
 
-    const [seen, setSeen] = React.useState(false)
-    function togglePop(){
-        setSeen(!seen)
-    }
+        
+    React.useEffect(() => {
+        let handler = (e)=>{
+            if(!menuRef.current.contains(e.target)){
+                setOpen(false)
+            }
+       }
+        document.addEventListener("mousedown", handler)
 
-    const [reg, setReg] = React.useState(false)
-    function toggleReg(){
-        setReg(!reg)
-    }
+        return() => {
+            document.removeEventListener("mousedown", handler)
+        }
+    })
+
+
+
 
     return(
         <div className="header">
@@ -38,16 +47,13 @@ export default function Header(){
                 <p>AirBnb Your Home</p>
                 <LanguageIcon />    
                 <div className="header__avatar">
-                        <IconButton aria-label="menu" className="dropbtn">
-                            <div className="dropdown">
+                        <IconButton aria-label="menu" className="dropbtn" >
+                            <div className="dropdown" ref={menuRef}>
                                 {
                                     Open ? (
-                                            <div class="dropdown-content">
-                                                {/* SignUp */}
-                                                <a onClick={toggleReg}>Sign up</a>
-                                                {reg ? <Register toggle={toggleReg} /> : null}
-                                                <a onClick={togglePop}>Log in</a>
-                                                {seen ? <SignUp toggle={togglePop} /> : null}
+                                            <div className="dropdown-content" >
+                                                <Link to="/register">Register</Link>   
+                                                <Link to="/signup">Log In</Link>
                                                 <a>AirBnb Your Home</a>
                                                 <a>Help</a>
                                             </div>

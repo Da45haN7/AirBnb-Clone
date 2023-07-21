@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
+  auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "./firebase";
 import "./Register.css";
-import CloseIcon from '@mui/icons-material/Close';
-import SignUp from "./SignUp";
-
-function Register(props) {
-
-  const [seen, setSeen] = React.useState(false)
-  function togglePop(){
-      setSeen(!seen)
-  }
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -24,10 +17,6 @@ function Register(props) {
   return (
     <div className="register">
       <div className="register__container">
-        <div className="login__top">
-          <h2>Register</h2>
-          <CloseIcon sx={{ fontSize: 35 }} className="close" onClick={props.toggle}/>
-        </div>
         <input
           type="text"
           className="register__textBox"
@@ -58,8 +47,8 @@ function Register(props) {
         >
           Register with Google
         </button>
-        <div className="link">
-          Already have an account? <a onClick={togglePop}>Log in</a>{seen ? <SignUp toggle={togglePop} /> : null} now.
+        <div>
+          Already have an account? <Link to="/signup">Login</Link> now.
         </div>
       </div>
     </div>
